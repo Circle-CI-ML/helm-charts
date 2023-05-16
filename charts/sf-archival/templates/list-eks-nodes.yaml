@@ -1,18 +1,18 @@
-{{- if or (and (eq .Values.global.secrets.aws.enable true) (eq .Values.global.secrets.aws.use_iam_role true)) (and (eq .Values.global.secrets.gcs.enable true) (eq .Values.global.secrets.gcs.use_google_service_account true)) }}
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: {{ .Release.Name }}-list-eks-nodes
 rules:
-- apiGroups: [""]
-  resources: ["nodes"]
-  verbs: ["list"]
-{{- end }}
+- apiGroups:
+  - ""
+  resources:
+  - "nodes"
+  verbs:
+  - "list"
 
 ---
 
-{{- if or (and (eq .Values.global.secrets.aws.enable true) (eq .Values.global.secrets.aws.use_iam_role true)) (and (eq .Values.global.secrets.gcs.enable true) (eq .Values.global.secrets.gcs.use_google_service_account true)) }}
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: {{ .Release.Name }}-list-eks-nodes-binding
@@ -24,4 +24,3 @@ roleRef:
   kind: ClusterRole
   name: {{ .Release.Name }}-list-eks-nodes
   apiGroup: rbac.authorization.k8s.io
-{{- end }}

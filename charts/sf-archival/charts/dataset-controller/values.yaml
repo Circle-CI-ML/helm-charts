@@ -3,20 +3,24 @@ billing-service:
   enabled: false
   scheme: https
   url: 127.0.0.1:8000/api/v1/records/
+bucketPartitonAnalyzeIntervalInMin: 5
+bucketPartitonsToAnalyzeInParallelMax: 5
 containerResources:
   datasetcontroller:
     limits:
-      cpu: 100m
-      memory: 512Mi
+      cpu: 50m
+      memory: 256Mi
     requests:
       cpu: 10m
       memory: 256Mi
+db:
+  max_idle_connections: 1
+  max_open_connections: 2
 fullnameOverride: ''
-schedulerName: sf-scheduler
 image:
   pullPolicy: IfNotPresent
   repository: snappyflowml/dataset-controller
-  tag: '10'
+  tag: '13'
 ingest-controller:
   service:
     servicePort: 5000
@@ -32,6 +36,7 @@ schedules:
   billing: 0 * * * *
   detect: '*/30 * * * *'
   expired: 1 0 * * *
+  hourly: 0 * * * *
   raw_version_compacted: 5 2 * * *
   refresh_size: 5 1 * * *
 serverPort: :5001

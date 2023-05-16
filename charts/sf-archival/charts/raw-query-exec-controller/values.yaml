@@ -1,21 +1,12 @@
 affinity: {}
 fullnameOverride: ''
-schedulerName: sf-scheduler
 image:
   pullPolicy: IfNotPresent
   repository: snappyflowml/raw-query-exec-controller
-  tag: '1'
+  tag: '3'
 imagePullSecrets: []
-ingress:
-  annotations: {}
-  className: ''
-  enabled: false
-  hosts:
-  - host: chart-example.local
-    paths:
-    - path: /
-      pathType: ImplementationSpecific
-  tls: []
+maxGBToProcessDuringHistogramQuery: 1
+maxGBToProcessDuringLogQuery: 1
 nameOverride: ''
 nodeSelector: {}
 podAnnotations: {}
@@ -32,6 +23,7 @@ resources:
   requests:
     cpu: 50m
     memory: 256Mi
+schedulerName: sf-scheduler
 securityContext: {}
 service:
   port: 80

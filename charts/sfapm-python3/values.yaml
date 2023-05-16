@@ -5,9 +5,7 @@
 # set to true to enable debug logs on
 # apm and vizbuilder
 enableDebug: false
-
-schedulerName: sf-scheduler
-
+archiverEnabled: true
 nameOverride: ""
 fullnameOverride: ""
 imagePullSecrets: []
@@ -59,7 +57,7 @@ sfapmui:
 
   image:
     repository: snappyflowml/sfapm-ui
-    tag: 3.1.397
+    tag: 3.1.444
     pullPolicy: IfNotPresent
 
   resources:
@@ -149,7 +147,7 @@ sfapm:
 
   image:
     repository: snappyflowml/sfapm-server
-    tag: 4.0.352-python3
+    tag: 4.0.421-python3
     pullPolicy: IfNotPresent
 
   resources:
@@ -263,7 +261,7 @@ vizbuilder:
 
   image:
     repository: snappyflowml/sfapm-vizbuilder
-    tag: 4.0.196-python3
+    tag: 4.0.219-python3
     pullPolicy: IfNotPresent
 
   resources:
@@ -379,7 +377,7 @@ commands:
 
   image:
     repository: snappyflowml/sfapm-commands
-    tag: 1.0.18
+    tag: 1.0.29
     pullPolicy: IfNotPresent
 
   resources:
@@ -435,7 +433,7 @@ esmanager:
 
   image:
     repository: snappyflowml/sfapm-esmanager
-    tag: 1.0.29
+    tag: 1.0.55
     pullPolicy: IfNotPresent
 
   resources:
@@ -679,6 +677,16 @@ usage_system:
   # tls true for HTTPS
   tls: False
 
+# Ingest Usage system
+ingest_usage_system:
+  # Usage system host IP/Domain
+  enabled: false
+  host: ""
+  # Port number for usage system server
+  port: 443
+  # tls true for HTTPS
+  tls: False
+
 # pprof-server config
 pprof:
   image:
@@ -745,9 +753,12 @@ cloud:
     service_account: "XXXX-compute@developer.gserviceaccount.com OR XXXX@XXXX.iam.gserviceaccount.com"
     region: us-west1
     zone: us-west1-c
+  datacenter:
+    enable: false
 
 global:
   sfappname: sf-portal-app
+  sfdatapath_appname: sf-data-path
   sfprojectname: snappyflow-app
   sfappname_key: snappyflow/appname
   sfprojectname_key: snappyflow/projectname
@@ -755,3 +766,10 @@ global:
   nginx_ua_parsing: true
   enable_sftrace: false
   key: ""
+
+  sfNodeManager:
+    enabled: false
+    priorityClassName: sf-critical-pod
+  sfScheduler:
+    enabled: false
+    schedulerName: sf-scheduler

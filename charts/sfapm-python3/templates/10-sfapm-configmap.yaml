@@ -25,6 +25,12 @@ data:
     REDIS_HOST: {{ .Release.Name  }}-redis
     REDIS_PORT: "6379"
 
+    {{- if .Values.archiverEnabled }}
+    ARCHIVER_ENABLED: "True"
+    {{- else }}
+    ARCHIVER_ENABLED: ""
+    {{- end }}
+
     VIZBUILDER_HOST: {{ include "sfapm.fullname" . }}-vizbuilder
     VIZBUILDER_PORT: "{{ .Values.vizbuilder.service.port }}"
 
@@ -88,6 +94,11 @@ data:
     USAGE_SERVICE_HOST: "{{ .Values.usage_system.host }}"
     USAGE_SERVICE_PORT: "{{ .Values.usage_system.port }}"
     USAGE_SERVICE_TLS: "{{ .Values.usage_system.tls }}"
+    {{- end }}
+
+    {{- if .Values.ingest_usage_system.enabled }}
+    USAGE_SYSTEM_HOST: "{{ .Values.ingest_usage_system.host }}"
+    USAGE_SYSTEM_PORT: "{{ .Values.ingest_usage_system.port }}"
     {{- end }}
 
     PPROF_SERVER_HOST: "{{ include "sfapm.fullname" . }}-pprof-server"
